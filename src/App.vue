@@ -6,12 +6,9 @@
 		</header>
 
 		<!-- books list -->
-		<ul>
-			<li :key="index" v-for="(book, index) in books">
-				{{ book.title }},{{ book.price }}
-				<button @click="removeBook(index)">Remove</button>
-			</li>
-		</ul>
+		<booksList 
+    :removeBook="removeBook"
+    :books="books" />
 
 		<!-- no books message -->
 		<p v-show="!books.length">Go get some books!</p>
@@ -36,6 +33,7 @@
 
 <script setup>
 import { ref, reactive } from "vue";
+import booksList from "./components/booksList.vue"
 
 let newBookTittle = ref();
 let newBookPrice = ref(0);
