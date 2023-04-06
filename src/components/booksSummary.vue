@@ -14,16 +14,12 @@ const props = defineProps({
 const test = computed({
 	get() {
 		return props.books.reduce((sum, prices) => {
-			return (sum += prices.price);
+			let test = prices.price.substring(1)
+			
+			return (sum += parseInt(test));
 		}, 0);
 	},
 });
 
-/* function totalPrice2() {
-	console.log("funkcja sie wykonala");
 
-	return props.books.reduce((sum, prices) => {
-		return (sum += prices.price);
-	}, 0);
-} */
 </script>

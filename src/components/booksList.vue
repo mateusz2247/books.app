@@ -2,7 +2,7 @@
     <div>
         <ul>
 			<li :key="index" v-for="(book, index) in props.books">
-				{{ book.title }},{{ book.price }}
+			TITLE:	{{ book.title }}, PRICE: {{ book.price }}
 				<button @click="$emit('remove',index)">Remove</button>
 			</li>
 		</ul>

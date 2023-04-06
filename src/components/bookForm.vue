@@ -11,12 +11,7 @@
 		<button>Add book</button>
 	</form>
 
-	<!-- <div>
-		<h5>Products</h5>
-		<ul>
-			<li v-for="(product,index) in products" :key="index">{{ product.book.title }}</li>
-		</ul>
-	</div> -->
+	
 </template>
 
 <script setup>
@@ -33,10 +28,5 @@ const submit = (newBookTittle2, newBookPrice2) => {
 	newBookPrice.value = "";
 };
 
-/* const products = ref(null);
-fetch("https://api.itbook.store/1.0/new")
-	.then((response) => response.json())
-	.then((data) => (products.value = data));
 
-console.log(products); */
 </script>
