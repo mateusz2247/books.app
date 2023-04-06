@@ -6,37 +6,24 @@
 		</header>
 
 		<!-- books list -->
-		<booksList 
-    :removeBook="removeBook"
-    :books="books" />
+		<booksList @remove="removeBook" :books="books" />
 
 		<!-- no books message -->
-		<p v-show="!books.length">Go get some books!</p>
-		<p v-show="books.length > 5">{{ books.length }} ksiazek</p>
-		<p v-show="books.length <= 5 && books.length > 1">Not too many of them..</p>
-		<p v-show="books.length == 1">One single book!</p>
+		<booksLengthMsg :books="books" />
 
 		<!-- add book form -->
-		<form @submit.prevent="addBook">
-			<label>
-				Title:
-				<input v-model="newBookTittle" type="text" name="title" />
-			</label>
-			<label>
-				price:
-				<input v-model="newBookPrice" type="number" name="price" />
-			</label>
-			<button>Add book</button>
-		</form>
+		<bookForm @submit="addBook" />
+
+		<booksSummary :books="books" />
 	</div>
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
-import booksList from "./components/booksList.vue"
-
-let newBookTittle = ref();
-let newBookPrice = ref(0);
+import { reactive } from "vue";
+import booksList from "./components/booksList.vue";
+import booksLengthMsg from "./components/booksLengthMsg.vue";
+import bookForm from "./components/bookForm.vue";
+import booksSummary from "./components/booksSummary.vue";
 
 const books = reactive([
 	{
@@ -51,18 +38,23 @@ const books = reactive([
 
 function removeBook(index) {
 	console.log(index);
-	this.books.splice(index, 1);
+	books.splice(index, 1);
 }
-function addBook() {
-	let newBook = {
-		title: newBookTittle.value,
-		price: newBookPrice.value,
+function addBook(title, price) {
+	let book = {
+		title: title,
+		price: parseInt(price)
 	};
+
 	console.log("dodaje ksiazke");
-	books.push(newBook);
-	newBookTittle.value = "";
-	newBookPrice.value = 0;
+	books.push(book);
+	console.log(books);
+	
 }
+
+
+
+
 </script>
 
 <style>
