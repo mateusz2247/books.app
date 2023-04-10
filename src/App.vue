@@ -1,23 +1,24 @@
 <template>
-	<div id="app">
-		<!-- heading -->
-		<header>
-			<h1>Books<span>.app</span></h1>
-		</header>
+	<v-app id="inspire"
+	class="bg-blue"
+	>
+		<v-app-bar
+			color="teal-darken-4"
+			image="https://picsum.photos/1920/1080?random">
+			<v-toolbar-title>Books.App</v-toolbar-title>
+		</v-app-bar>
 
-		<!-- books list -->
-		<booksList @remove="removeBook" :books="books" />
+		<v-main>
+			<div id="app">
+				<bookForm @submit="addBook" />
+				<booksList @remove="removeBook" :books="books" />
 
-		<!-- no books message -->
-		<booksLengthMsg :books="books" />
+				<booksLengthMsg :books="books" />
 
-		<!-- add book form -->
-		<bookForm @submit="addBook" />
-
-		<booksSummary :books="books" />
-
-		<!-- <li v-show="!products"  v-for="(product, index) in products" :key="index"></li> -->
-	</div>
+				<booksSummary :books="books" />
+			</div>
+		</v-main>
+	</v-app>
 </template>
 
 <script setup>
@@ -27,55 +28,37 @@ import booksLengthMsg from "./components/booksLengthMsg.vue";
 import bookForm from "./components/bookForm.vue";
 import booksSummary from "./components/booksSummary.vue";
 
-let books = reactive([
-/* 	{
-		title: " The catcher in the rye",
-		price: 20,
-	},
-	{
-		title: "Of mice and Men",
-		price: 18,
-	}, */
-]);
+let books = reactive([]);
 
 function removeBook(index) {
 	console.log(books);
 	books.splice(index, 1);
-
 }
 function addBook(title, price) {
 	let book = {
 		title: title,
-		price: '$'+price,
+		price: "$" + price,
 	};
 
 	console.log("dodaje ksiazke");
 	books.push(book);
 	console.log(products);
-	console.log(products.value)
-
+	console.log(products.value);
 }
 const products = ref(null);
 
-/* onMounted(() => { */
 fetch("https://api.itbook.store/1.0/new")
 	.then((response) => response.json())
 	.then((data) => {
-		products.value = data.books;
-		books.push(products.value[0])
-		books.push(products.value[1])
-		books.push(products.value[2])
+		books.push(...data.books.splice(0, 3));
 	});
-	
-</script>
 
-<style>
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
-}
-</style>
+/* fetch("https://api.itbook.store/1.0/new")
+	.then((response) => response.json())
+	.then((data) => {
+		products.value = data.books;
+		books.push(products.value[0]);
+		books.push(products.value[1]);
+		books.push(products.value[2]);
+	}); */
+</script>

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="bg-purple text-center">
 		<p>Books amount: {{ props.books.length }}</p>
 		<!-- <p>Books price: {{ totalPrice2() }}</p> -->
 		<p>Books price: {{ test }}</p>
